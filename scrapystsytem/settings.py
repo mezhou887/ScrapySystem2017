@@ -1,5 +1,11 @@
 # -*- coding: utf-8 -*-
 
+import sys
+import os
+from os.path import dirname
+path = dirname(dirname(os.path.abspath(os.path.dirname(__file__))))
+sys.path.append(path)
+
 # Scrapy settings for scrapystsytem project
 #
 # For simplicity, this file contains only settings considered important or
@@ -16,10 +22,10 @@ NEWSPIDER_MODULE = 'scrapystsytem.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'scrapystsytem (+http://www.yourdomain.com)'
+USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.221 Safari/537.36 SE 2.X MetaSr 1.0"
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -27,7 +33,7 @@ ROBOTSTXT_OBEY = True
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -52,9 +58,9 @@ ROBOTSTXT_OBEY = True
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'scrapystsytem.middlewares.MyCustomDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+    'scrapystsytem.misc.middleware.CustomUserAgentMiddleware': 543,
+}
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
@@ -65,7 +71,7 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'scrapystsytem.pipelines.ScrapystsytemPipeline': 300,
+#    'scrapysystem.pipelines.JsonPipeline': 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -88,3 +94,28 @@ ROBOTSTXT_OBEY = True
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+
+# # Email配置信息
+# EXTENSIONS = {
+#     'scrapy.extensions.statsmailer.StatsMailer': 500,
+# }
+# # 收件人
+# STATSMAILER_RCPTS = ['mezhou887@foxmail.com']
+# # 发件人
+# MAIL_FROM = '1033738034@qq.com'
+# MAIL_HOST = 'smtp.qq.com'
+# MAIL_PORT = 465
+# MAIL_TLS = True
+# MAIL_SSL = True
+# # 邮箱用户
+# MAIL_USER = '1033738034@qq.com'
+# # 邮箱密码
+# MAIL_PASS = 'ghyftlmoejsgbeai'
+
+
+# # Log配置信息 
+# LOG_FILE = 'scrapysystem.log'
+# LOG_ENABLED = True
+LOG_LEVEL = 'WARNING' # CRITICAL > ERROR > WARNING > INFO > DEBUG
+
