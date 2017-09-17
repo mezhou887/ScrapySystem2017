@@ -5,7 +5,6 @@
 # See documentation in:
 # http://doc.org/en/latest/topics/items.html
 
-import scrapy
 from scrapy import Field,Item
 
 
@@ -49,4 +48,8 @@ class ZhihuPeopleItem(Item):
     logs            = Field();
     followees       = Field();
     followers       = Field();
-    follow_topics   = Field();   
+    follow_topics   = Field(); 
+    
+class AaaaItem(Item):
+    name   = Field()
+    link   = Field()    
