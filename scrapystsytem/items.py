@@ -24,7 +24,6 @@ class LianjiaItem(Item):
     price         = Field();
     average_price = Field();
     link          = Field();
-    Latitude      = Field();
     city          = Field();
    
    

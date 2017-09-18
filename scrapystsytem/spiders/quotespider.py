@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 
 class QuoteSpider(Spider):
     
-    name = 'quites';
+    name = 'quote';
     start_urls = [
         'http://quotes.toscrape.com/page/1/',
         'http://quotes.toscrape.com/page/2/',

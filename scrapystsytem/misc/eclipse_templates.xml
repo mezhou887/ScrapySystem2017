@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="false" context="org.python.pydev.editor.templates.python.modules" deleted="false" description="Module: Empty" enabled="false" id="org.python.pydev.editor.templates.python.module.empty" name="&lt;Empty&gt;">'''
+Created on ${date}
+
+@author: ${user}
+'''
+${cursor}</template><template autoinsert="true" context="org.python.pydev.editor.templates.python.modules" deleted="false" description="高级爬虫1: 以Cnbeta作为模板开发而成" enabled="false" name="CrawlerSpider1"># -*- coding: utf-8 -*-&#13;
+'''&#13;
+Created on ${date}&#13;
+&#13;
+@author: ${user}&#13;
+'''&#13;
+import logging&#13;
+import scrapy&#13;
+from scrapy.spiders import Rule, CrawlSpider&#13;
+from scrapy.linkextractors import LinkExtractor as sle&#13;
+from scrapy.selector import Selector&#13;
+from scrapystsytem.items import AaaaItem&#13;
+&#13;
+logger = logging.getLogger(__name__)&#13;
+&#13;
+#  以Cnbeta作为模板，使用CrawlSpider&#13;
+class AaaaSpider(CrawlSpider):&#13;
+    name = 'cnbeta'&#13;
+    allowed_domains = ['cnbeta.com']&#13;
+    start_urls = [&#13;
+        'http://www.cnbeta.com/'&#13;
+    ]&#13;
+     &#13;
+    rules = [&#13;
+        Rule(sle(allow=("/articles/.*\.htm")), callback='parse_bbbb', follow=True),&#13;
+    ]&#13;
+    &#13;
+    def parse_bbbb(self, response):&#13;
+    	logger.debug('parse_bbbb: '+response.url);&#13;
+        articlelist = Selector(response).xpath('//div[@class="cnbeta-article"]');&#13;
+        items = [];&#13;
+        for article in articlelist: &#13;
+            item = AaaaItem();&#13;
+            item['title'] = article.xpath('header[@class="title"]/h1/text()').extract_first();&#13;
+            item['publishtime']  = article.xpath('header[@class="title"]/div[@class="meta"]/span/text()').extract_first();&#13;
+            &#13;
+            logger.info('function: parse_bbbb, url: '+response.url+' , item: '+str(item));&#13;
+            items.append(item);&#13;
+        return items;</template><template autoinsert="true" context="org.python.pydev.editor.templates.python.modules" deleted="false" description="高级爬虫2: 以豆瓣电影作为模板" enabled="false" name="CrawlerSpider2"># -*- coding: utf-8 -*-&#13;
+'''&#13;
+Created on ${date}&#13;
+&#13;
+@author: ${user}&#13;
+'''&#13;
+import logging&#13;
+import scrapy&#13;
+from scrapystsytem.misc.commonspider import CommonSpider&#13;
+from scrapy.spiders import Rule&#13;
+from scrapy.linkextractors import LinkExtractor as sle&#13;
+&#13;
+logger = logging.getLogger(__name__)&#13;
+&#13;
+# 以豆瓣电影作为模板，继承的CommonSpider使用CrawlSpider&#13;
+class AaaaSpider(CommonSpider):&#13;
+    name = "doubanmovie"&#13;
+    allowed_domains = ["douban.com"]&#13;
+    start_urls = [&#13;
+        "https://movie.douban.com/chart"&#13;
+    ]&#13;
+&#13;
+    rules = [&#13;
+        Rule(sle(allow=("/subject/[0-9]+/")), callback='parse_bbbb', follow=True),&#13;
+    ]&#13;
+&#13;
+    content_css_rules = {&#13;
+        'rating_per': '.rating_per::text',&#13;
+        'rating_num': '.rating_num::text',&#13;
+        'title': 'h1 span:nth-child(1)::text',&#13;
+        'rating_people': '.rating_people span::text',&#13;
+    }&#13;
+&#13;
+    def parse_bbbb(self, response):&#13;
+        item = self.parse_with_rules(response, self.content_css_rules, dict)&#13;
+        logger.info('function: parse_bbbb, url: '+response.url+' , item: '+str(item));&#13;
+        return item</template><template autoinsert="false" context="org.python.pydev.editor.templates.python.modules" deleted="false" description="Module: Class" enabled="false" id="org.python.pydev.editor.templates.python.module.class" name="Module: Class">'''
+Created on ${date}
+
+@author: ${user}
+'''
+
+class ${MyClass}(${object}):
+    '''
+    ${classdocs}
+    '''
+
+
+    def __init__(self, ${params}):
+        '''
+        ${Constructor}
+        '''
+        ${cursor}</template><template autoinsert="true" context="org.python.pydev.editor.templates.python.modules" deleted="false" description="Module: Command line tool skeleton using argparse (suitable for Python 2.7+)" enabled="false" id="org.python.pydev.editor.templates.python.module.cli.argparse" name="Module: CLI (argparse)">#!/usr/local/bin/python2.7
+# encoding: utf-8
+'''
+${module} -- ${shortdesc}
+
+${module} is a ${description}
+
+It defines ${classes_and_methods}
+
+@author:     ${user_name}
+
+@copyright:  ${year} ${organization_name}. All rights reserved.
+
+@license:    ${license}
+
+@contact:    ${user_email}
+@deffield    updated: Updated
+'''
+
+import sys
+import os
+
+from argparse import ArgumentParser
+from argparse import RawDescriptionHelpFormatter
+
+__all__ = []
+__version__ = 0.1
+__date__ = '${isodate}'
+__updated__ = '${isodate}'
+
+DEBUG = 1
+TESTRUN = 0
+PROFILE = 0
+
+class CLIError(Exception):
+    '''Generic exception to raise and log different fatal errors.'''
+    def __init__(self, msg):
+        super(CLIError).__init__(type(self))
+        self.msg = "E: %s" % msg
+    def __str__(self):
+        return self.msg
+    def __unicode__(self):
+        return self.msg
+
+def main(argv=None): # IGNORE:C0111
+    '''Command line options.'''
+
+    if argv is None:
+        argv = sys.argv
+    else:
+        sys.argv.extend(argv)
+
+    program_name = os.path.basename(sys.argv[0])
+    program_version = "v%s" % __version__
+    program_build_date = str(__updated__)
+    program_version_message = '%%(prog)s %s (%s)' % (program_version, program_build_date)
+    program_shortdesc = __import__('__main__').__doc__.split("\n")[1]
+    program_license = '''%s
+
+  Created by ${user_name} on %s.
+  Copyright ${year} ${organization_name}. All rights reserved.
+
+  Licensed under the Apache License 2.0
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Distributed on an "AS IS" basis without warranties
+  or conditions of any kind, either express or implied.
+
+USAGE
+''' % (program_shortdesc, str(__date__))
+
+    try:
+        # Setup argument parser
+        parser = ArgumentParser(description=program_license, formatter_class=RawDescriptionHelpFormatter)
+        parser.add_argument("-r", "--recursive", dest="recurse", action="store_true", help="recurse into subfolders [default: %(default)s]")
+        parser.add_argument("-v", "--verbose", dest="verbose", action="count", help="set verbosity level [default: %(default)s]")
+        parser.add_argument("-i", "--include", dest="include", help="only include paths matching this regex pattern. Note: exclude is given preference over include. [default: %(default)s]", metavar="RE" )
+        parser.add_argument("-e", "--exclude", dest="exclude", help="exclude paths matching this regex pattern. [default: %(default)s]", metavar="RE" )
+        parser.add_argument('-V', '--version', action='version', version=program_version_message)
+        parser.add_argument(dest="paths", help="paths to folder(s) with source file(s) [default: %(default)s]", metavar="path", nargs='+')
+
+        # Process arguments
+        args = parser.parse_args()
+
+        paths = args.paths
+        verbose = args.verbose
+        recurse = args.recurse
+        inpat = args.include
+        expat = args.exclude
+
+        if verbose &gt; 0:
+            print("Verbose mode on")
+            if recurse:
+                print("Recursive mode on")
+            else:
+                print("Recursive mode off")
+
+        if inpat and expat and inpat == expat:
+            raise CLIError("include and exclude pattern are equal! Nothing will be processed.")
+
+        for inpath in paths:
+            ### do something with inpath ###
+            print(inpath)
+        return 0
+    except KeyboardInterrupt:
+        ### handle keyboard interrupt ###
+        return 0
+    except Exception, e:
+        if DEBUG or TESTRUN:
+            raise(e)
+        indent = len(program_name) * " "
+        sys.stderr.write(program_name + ": " + repr(e) + "\n")
+        sys.stderr.write(indent + "  for help use --help")
+        return 2
+
+if __name__ == "__main__":
+    if DEBUG:
+        sys.argv.append("-h")
+        sys.argv.append("-v")
+        sys.argv.append("-r")
+    if TESTRUN:
+        import doctest
+        doctest.testmod()
+    if PROFILE:
+        import cProfile
+        import pstats
+        profile_filename = '${module}_profile.txt'
+        cProfile.run('main()', profile_filename)
+        statsfile = open("profile_stats.txt", "wb")
+        p = pstats.Stats(profile_filename, stream=statsfile)
+        stats = p.strip_dirs().sort_stats('cumulative')
+        stats.print_stats()
+        statsfile.close()
+        sys.exit(0)
+    sys.exit(main())</template><template autoinsert="true" context="org.python.pydev.editor.templates.python.modules" deleted="false" description="Module: Command line tool skeleton using optparse (suitable for Python &lt; 2.6)" enabled="false" id="org.python.pydev.editor.templates.python.module.cli.optparse" name="Module: CLI (optparse)">#!/usr/bin/env python
+# encoding: utf-8
+'''
+${module} -- ${shortdesc}
+
+${module} is a ${description}
+
+It defines ${classes_and_methods}
+
+@author:     ${user_name}
+
+@copyright:  ${year} ${organization_name}. All rights reserved.
+
+@license:    ${license}
+
+@contact:    ${user_email}
+@deffield    updated: Updated
+'''
+
+import sys
+import os
+
+from optparse import OptionParser
+
+__all__ = []
+__version__ = 0.1
+__date__ = '${isodate}'
+__updated__ = '${isodate}'
+
+DEBUG = 1
+TESTRUN = 0
+PROFILE = 0
+
+def main(argv=None):
+    '''Command line options.'''
+
+    program_name = os.path.basename(sys.argv[0])
+    program_version = "v0.1"
+    program_build_date = "%s" % __updated__
+
+    program_version_string = '%%prog %s (%s)' % (program_version, program_build_date)
+    #program_usage = '''usage: spam two eggs''' # optional - will be autogenerated by optparse
+    program_longdesc = '''''' # optional - give further explanation about what the program does
+    program_license = "Copyright ${year} ${user_name} (${organization_name})                                            \
+                Licensed under the Apache License 2.0\nhttp://www.apache.org/licenses/LICENSE-2.0"
+
+    if argv is None:
+        argv = sys.argv[1:]
+    try:
+        # setup option parser
+        parser = OptionParser(version=program_version_string, epilog=program_longdesc, description=program_license)
+        parser.add_option("-i", "--in", dest="infile", help="set input path [default: %default]", metavar="FILE")
+        parser.add_option("-o", "--out", dest="outfile", help="set output path [default: %default]", metavar="FILE")
+        parser.add_option("-v", "--verbose", dest="verbose", action="count", help="set verbosity level [default: %default]")
+
+        # set defaults
+        parser.set_defaults(outfile="./out.txt", infile="./in.txt")
+
+        # process options
+        (opts, args) = parser.parse_args(argv)
+
+        if opts.verbose &gt; 0:
+            print("verbosity level = %d" % opts.verbose)
+        if opts.infile:
+            print("infile = %s" % opts.infile)
+        if opts.outfile:
+            print("outfile = %s" % opts.outfile)
+
+        # MAIN BODY #
+
+    except Exception, e:
+        indent = len(program_name) * " "
+        sys.stderr.write(program_name + ": " + repr(e) + "\n")
+        sys.stderr.write(indent + "  for help use --help")
+        return 2
+
+
+if __name__ == "__main__":
+    if DEBUG:
+        sys.argv.append("-h")
+    if TESTRUN:
+        import doctest
+        doctest.testmod()
+    if PROFILE:
+        import cProfile
+        import pstats
+        profile_filename = '${module}_profile.txt'
+        cProfile.run('main()', profile_filename)
+        statsfile = open("profile_stats.txt", "wb")
+        p = pstats.Stats(profile_filename, stream=statsfile)
+        stats = p.strip_dirs().sort_stats('cumulative')
+        stats.print_stats()
+        statsfile.close()
+        sys.exit(0)
+    sys.exit(main())</template><template autoinsert="false" context="org.python.pydev.editor.templates.python.modules" deleted="false" description="Module: Main" enabled="false" id="org.python.pydev.editor.templates.python.module.main" name="Module: Main">'''
+Created on ${date}
+
+@author: ${user}
+'''
+
+if __name__ == '__main__':
+    ${pass}${cursor}</template><template autoinsert="false" context="org.python.pydev.editor.templates.python.modules" deleted="false" description="Module: Unittest" enabled="false" id="org.python.pydev.editor.templates.python.module.unittest" name="Module: Unittest">'''
+Created on ${date}
+
+@author: ${user}
+'''
+import unittest
+
+
+class Test(unittest.TestCase):
+
+
+    def test${Name}(self):
+        ${pass}${cursor}
+
+
+if __name__ == "__main__":
+    #import sys;sys.argv = ['', 'Test.test${Name}']
+    unittest.main()</template><template autoinsert="false" context="org.python.pydev.editor.templates.python.modules" deleted="false" description="Module: Unittest with setUp and tearDown" enabled="false" id="org.python.pydev.editor.templates.python.module.setup_and_teardown" name="Module: Unittest with setUp and tearDown">'''
+Created on ${date}
+
+@author: ${user}
+'''
+import unittest
+
+
+class Test(unittest.TestCase):
+
+
+    def setUp(self):
+        pass
+
+
+    def tearDown(self):
+        pass
+
+
+    def test${Name}(self):
+        ${pass}${cursor}
+
+
+if __name__ == "__main__":
+    #import sys;sys.argv = ['', 'Test.test${Name}']
+    unittest.main()</template><template autoinsert="true" context="org.python.pydev.editor.templates.python.modules" deleted="false" description="基本爬虫1: 以码农周刊作为模板开发而成的" enabled="false" name="Spider1"># -*- coding: utf-8 -*-&#13;
+'''&#13;
+Created on ${date}&#13;
+&#13;
+@author: ${user}&#13;
+'''&#13;
+import logging&#13;
+import scrapy&#13;
+from scrapy.spiders import Spider&#13;
+from scrapy.selector import Selector&#13;
+from scrapystsytem.items import AaaaItem&#13;
+&#13;
+logger = logging.getLogger(__name__)&#13;
+&#13;
+# 以码农周刊作为模板，使用spider&#13;
+# start_urls = ['http://jandan.net/ooxx/page-'+str(i)+'#comments' for i in range(1500, 2000)]&#13;
+# &#13;
+class AaaaSpider(Spider):&#13;
+    name = 'manong'&#13;
+    allowed_domains = ['weekly.manong.io']&#13;
+    start_urls = [&#13;
+        'http://weekly.manong.io/issues/'+str(i) for i in range(1, 200)&#13;
+    ]&#13;
+    &#13;
+    def parse(self, response):&#13;
+        sel = Selector(response)&#13;
+        items = []&#13;
+        article_list  = sel.xpath('//h4')&#13;
+        for article in article_list:&#13;
+            item         = AaaaItem()&#13;
+            item['name'] = article.xpath('a/text()').extract()[0].strip()&#13;
+            item['link'] = article.xpath('a/@href').extract()[0].strip()&#13;
+            &#13;
+            logger.info('function: parse, url: '+response.url+' , item: '+str(item));&#13;
+            items.append(item)&#13;
+            &#13;
+        return items   </template><template autoinsert="true" context="org.python.pydev.editor.templates.python.modules" deleted="false" description="基本爬虫2: 以QuoteSpider作为模板开发而成的" enabled="false" name="Spider2"># -*- coding: utf-8 -*-&#13;
+'''&#13;
+Created on ${date}&#13;
+&#13;
+@author: ${user}&#13;
+'''&#13;
+import logging&#13;
+import scrapy&#13;
+from scrapy.spiders import Spider&#13;
+from scrapy.selector import Selector&#13;
+from scrapystsytem.items import AaaaItem&#13;
+&#13;
+logger = logging.getLogger(__name__)&#13;
+&#13;
+# 以QuoteSpider作为模板，使用spider&#13;
+#&#13;
+class AaaaSpider(Spider):&#13;
+    name = 'quites';&#13;
+    start_urls = [&#13;
+        'http://quotes.toscrape.com/page/1/',&#13;
+        'http://quotes.toscrape.com/page/2/',&#13;
+    ];&#13;
+&#13;
+    def parse(self, response):&#13;
+        for quote in response.css('div.quote'):&#13;
+            yield {&#13;
+                'text': quote.css('span.text::text').extract_first(),&#13;
+                'author': quote.css('small.author::text').extract_first(),&#13;
+                'tags': quote.css('div.tags a.tag::text').extract(),&#13;
+            }&#13;
+&#13;
+    def closed(self, reason):&#13;
+        print 'closed', reason</template></templates>
