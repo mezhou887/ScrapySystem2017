@@ -8,6 +8,11 @@
 from scrapy import Field,Item
 
 
+class DmoztoolsItem(Item):
+    url         = Field()
+    name        = Field()
+    description = Field()
+
 class CnbetaItem(Item):
     title         = Field();
     publishtime   = Field();

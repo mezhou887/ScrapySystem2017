@@ -1,7 +1,14 @@
 # -*- coding: utf-8 -*-
 import re
 from scrapy.selector import Selector
-from scrapy.spiders import CrawlSpider
+from scrapy.spiders import CrawlSpider, Rule
+from scrapy.linkextractors import LinkExtractor as sle
+
+
+'''
+1. 默认取sel.css()[0]，如否则需要'__unique':False or __list:True
+2. 默认字典均为css解析，如否则需要'__use':'dump'表明是用于dump数据
+'''
 
 class CommonSpider(CrawlSpider):
     auto_join_text = False
@@ -60,6 +67,8 @@ class CommonSpider(CrawlSpider):
             else:
                 item[nk] = []
 
+    # 1. item是一个单独的item，所有数据都聚合到其中 *merge
+    # 2. 存在item列表，所有item归入items
     def traversal(self, sel, rules, item_class, item, items):
         # print 'traversal:', sel, rules.keys()
         if item is None:

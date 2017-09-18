@@ -8,6 +8,7 @@ encoding//scrapystsytem/misc/middleware.py=utf-8
 encoding//scrapystsytem/pipelines.py=utf-8
 encoding//scrapystsytem/settings.py=utf-8
 encoding//scrapystsytem/spiders/cnbetaspider.py=utf-8
+encoding//scrapystsytem/spiders/dmoztoolsspider.py=utf-8
 encoding//scrapystsytem/spiders/doubanmoviespider.py=utf-8
 encoding//scrapystsytem/spiders/lianjiaspider.py=utf-8
 encoding//scrapystsytem/spiders/quotespider.py=utf-8
