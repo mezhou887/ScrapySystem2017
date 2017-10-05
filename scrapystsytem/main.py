@@ -18,7 +18,8 @@ if __name__ =="__main__":
 #     cmdline.execute("scrapy crawl cnbeta -o cnbeta.csv -s CLOSESPIDER_ITEMCOUNT=5".split())
 #     cmdline.execute("scrapy crawl quote -o quote.csv".split())
 #     cmdline.execute("scrapy crawl doubanmovie -o doubanmovie.csv".split())
-    cmdline.execute("scrapy crawl dmoztools -o dmoztools.csv".split())
+#     cmdline.execute("scrapy crawl dmoztools -o dmoztools.csv".split())
+    cmdline.execute("scrapy crawl panduoduo".split())
 #     cmdline.execute("scrapy crawl manong -o manong.csv -s CLOSESPIDER_ITEMCOUNT=5".split())
 #     cmdline.execute("scrapy crawl lianjia -o lianjia.csv -s CLOSESPIDER_ITEMCOUNT=5".split())
 #     cmdline.execute("scrapy crawl car".split());

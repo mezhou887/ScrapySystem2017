@@ -39,7 +39,7 @@ DOWNLOAD_DELAY = 3
 #CONCURRENT_REQUESTS_PER_IP = 16
 
 # Disable cookies (enabled by default)
-#COOKIES_ENABLED = False
+COOKIES_ENABLED = False
 
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED = False
@@ -118,4 +118,10 @@ DOWNLOADER_MIDDLEWARES = {
 # LOG_FILE = 'scrapysystem.log'
 # LOG_ENABLED = True
 LOG_LEVEL = 'INFO' # CRITICAL > ERROR > WARNING > INFO > DEBUG
+
+MONGODB_SERVER = "192.168.31.131"   
+MONGODB_PORT = '27017'   
+MONGODB_DB = 'zhihu' 
+MONGO_USER='root'
+MONGO_PASSWD='bitnami'
 
