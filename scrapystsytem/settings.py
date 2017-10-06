@@ -72,7 +72,7 @@ DOWNLOADER_MIDDLEWARES = {
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     'scrapystsytem.pipelines.MongoPipeline': 300,
-    'scrapystsytem.pipelines.JsonPipeline': 301,
+#     'scrapystsytem.pipelines.JsonPipeline': 301,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

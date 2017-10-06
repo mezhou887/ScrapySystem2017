@@ -12,5 +12,6 @@ encoding//scrapystsytem/spiders/dmoztoolsspider.py=utf-8
 encoding//scrapystsytem/spiders/doubanmoviespider.py=utf-8
 encoding//scrapystsytem/spiders/lianjiaspider.py=utf-8
 encoding//scrapystsytem/spiders/panduoduospider.py=utf-8
+encoding//scrapystsytem/spiders/panduoduospiderredis.py=utf-8
 encoding//scrapystsytem/spiders/quotespider.py=utf-8
 encoding/<project>=UTF-8
