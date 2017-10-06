@@ -6,11 +6,15 @@ Created on 2017年10月5日
 '''
 import scrapy
 from scrapystsytem.items import PanduoduoItem
+from scrapy.exceptions import CloseSpider
 
 class Panduoduo(scrapy.Spider):
     name = 'panduoduo'
     allowed_domains =['panduoduo.net']
     start_urls = ['http://www.panduoduo.net/c/4/{}'.format(n) for n in range(1,86151)]#6151
+    close_down = False
+    
+    
     def parse(self, response):
         base_url = 'http://www.panduoduo.net'
         node_list = response.xpath("//table[@class='list-resource']/tr")
@@ -30,3 +34,6 @@ class Panduoduo(scrapy.Spider):
             duoItem['docCount'] = ''.join(docCount)
             duoItem['docTime'] = ''.join(docTime)
             yield duoItem
+            
+            if(self.close_down == True):
+                raise CloseSpider(reason = "达到抓取数量") 

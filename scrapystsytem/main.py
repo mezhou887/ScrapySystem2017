@@ -8,6 +8,7 @@ Created on 2017年9月10日
 import os
 
 from scrapy import cmdline
+#   －o 代表输出文件 －t 代表文件格式
 if __name__ =="__main__":
     
     for fpathe,dirs,fs in os.walk(os.path.abspath('.')):
