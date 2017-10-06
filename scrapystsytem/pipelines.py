@@ -4,13 +4,6 @@ import codecs
 from collections import OrderedDict
 from pymongo import MongoClient
 from scrapy.exceptions import DropItem
-
-
-class DoNothingPipeline(object):
-    def process_item(self, item, spider):
-        print spider.name
-        return item
- 
  
 class JsonPipeline(object):
     max_dropcount = 10         # 抓取数量
