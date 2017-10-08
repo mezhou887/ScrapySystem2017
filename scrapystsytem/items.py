@@ -63,6 +63,10 @@ class ZhihuPeopleItem(Item):
     followers       = Field()
     follow_topics   = Field() 
     
-class AaaaItem(Item):
-    name   = Field()
-    link   = Field() 
+class XiCiDaiLiItem(Item):
+    ip              = Field()
+    port            = Field()
+    position        = Field()
+    type            = Field()
+    speed           = Field()
+    last_check_time = Field()

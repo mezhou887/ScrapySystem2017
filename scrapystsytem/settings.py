@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+# C:\Python27\Lib\site-packages\scrapy\settings
+
 import sys
 import os
 from os.path import dirname
@@ -28,7 +30,7 @@ USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, li
 ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-CONCURRENT_REQUESTS = 12
+CONCURRENT_REQUESTS = 16
 
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
@@ -71,8 +73,8 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'scrapystsytem.pipelines.MongoPipeline': 300,
-#     'scrapystsytem.pipelines.JsonPipeline': 301,
+    'scrapystsytem.pipeline.JsonPipeline.JsonPipeline': 300,
+    'scrapystsytem.pipeline.MongoPipeline.PanduoduoMongoPipeline': 301,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -115,11 +117,13 @@ ITEM_PIPELINES = {
 # MAIL_PASS = 'ghyftlmoejsgbeai'
 
 
-# # Log配置信息 
-# LOG_FILE = 'scrapysystem.log'
-# LOG_ENABLED = True
+# Log配置信息 
+LOG_FILE = 'scrapysystem.log'
+LOG_ENABLED = True
 LOG_LEVEL = 'INFO' # CRITICAL > ERROR > WARNING > INFO > DEBUG
 
+
+# Mongo配置信息
 MONGODB_SERVER = "192.168.31.131"   
 MONGODB_PORT = '27017'   
 MONGODB_DB = 'zhihu' 
