@@ -5,6 +5,7 @@ encoding//scrapystsytem/main.py=utf-8
 encoding//scrapystsytem/middlewares.py=utf-8
 encoding//scrapystsytem/misc/commonspider.py=utf-8
 encoding//scrapystsytem/misc/middleware.py=utf-8
+encoding//scrapystsytem/other/proxyhandler.py=utf-8
 encoding//scrapystsytem/pipeline/MongoPipeline.py=utf-8
 encoding//scrapystsytem/settings.py=utf-8
 encoding//scrapystsytem/spiders/cnbetaspider.py=utf-8
